@@ -19,16 +19,12 @@ The system integrates the following components:
 ## Data Flow & Architecture / 数据流与架构
 
 1.  **Data Ingestion (Flume)**:
-    *   Listens on port `10050` (Netcat source).
-    *   Uses a `Replicating Channel Selector` to duplicate events.
-    *   **Sink 1**: Writes raw events to HDFS `/user/test/flumebackup` for archival.
-    *   **Sink 2**: Pushes events to Kafka topic `order` for real-time processing.
+    *   **Task 1**: Single sink to Kafka (using `flume-task1.properties`).
+    *   **Task 2**: Multiplexing/Replicating to both Kafka and HDFS (using `flume-task2.properties`).
 
     **数据采集 (Flume)**:
-    *   监听 `10050` 端口 (Netcat 源)。
-    *   使用 `Replicating Channel Selector` 复制事件。
-    *   **Sink 1**: 将原始事件写入 HDFS `/user/test/flumebackup` 进行归档。
-    *   **Sink 2**: 将事件推送到 Kafka 主题 `order` 进行实时处理。
+    *   **任务 1**: 单一 Sink 至 Kafka (使用 `flume-task1.properties`)。
+    *   **任务 2**: 多路复用/复制至 Kafka 和 HDFS (使用 `flume-task2.properties`)。
 
 2.  **Stream Processing (Flink)**:
     *   **Source**: Consumes JSON strings from Kafka `order` topic.
@@ -100,5 +96,6 @@ Please refer to [GUIDE.md](GUIDE.md) for detailed step-by-step instructions on c
 *   `src/main/scala`:
     *   `com.example.model`: Case classes for JSON parsing / 用于 JSON 解析的样例类
     *   `com.example.task`: Main Flink Job logic / Flink 主程序逻辑
-*   `flume-conf.properties`: Flume agent configuration / Flume Agent 配置
+*   `flume-task1.properties`: Flume agent config for Task 1 (Kafka only) / 任务 1 Flume 配置
+*   `flume-task2.properties`: Flume agent config for Task 2 (Kafka + HDFS) / 任务 2 Flume 配置
 *   `pom.xml`: Maven build configuration (Dependencies & Plugins) / Maven 构建配置 (依赖与插件)
