@@ -21,20 +21,50 @@ The jar will be located at / Jar 包将位于:
 
 ## 2. Start Flume Agent (Task 1) / 启动 Flume Agent (任务 1)
 
-Start the Flume agent to consume from port 10050 and sink to Kafka and HDFS.
-启动 Flume Agent 以消费 10050 端口的数据，并将其发送到 Kafka 和 HDFS。
+**Objective / 目标:** Collect socket data and sink to Kafka. / 采集 Socket 数据并下沉到 Kafka。
+
+Start the Flume agent using `flume-task1.properties`.
+使用 `flume-task1.properties` 启动 Flume Agent。
 
 ```bash
-# Ensure you are in the directory containing flume-conf.properties
-# 确保你位于包含 flume-conf.properties 的目录下
 flume-ng agent \
   --name a1 \
   --conf conf \
-  --conf-file flume-conf.properties \
+  --conf-file flume-task1.properties \
   --property flume.root.logger=INFO,console
 ```
 
 ### Verification (Task 1) / 验证 (任务 1)
+
+Use the built-in Kafka consumer to check for data.
+使用 Kafka 自带的消费者检查数据。
+
+```bash
+kafka-console-consumer.sh --bootstrap-server 192.168.12.41:9092 --topic order --from-beginning --max-messages 2
+```
+
+*Screenshot Instructions / 截图说明:*
+Paste the command and the result (first 2 messages) into the release document.
+将前2条数据的结果截图粘贴至客户端桌面【Release\任务D提交结果.docx】中对应的任务序号下。
+
+---
+
+## 3. Flume Multiplexing (Task 2) / Flume 多路复用 (任务 2)
+
+**Objective / 目标:** Sink to Kafka AND backup to HDFS simultaneously. / 同时下沉到 Kafka 并备份到 HDFS。
+
+Stop the previous agent and start the new one using `flume-task2.properties`.
+停止上一个 Agent，并使用 `flume-task2.properties` 启动新 Agent。
+
+```bash
+flume-ng agent \
+  --name a1 \
+  --conf conf \
+  --conf-file flume-task2.properties \
+  --property flume.root.logger=INFO,console
+```
+
+### Verification (Task 2) / 验证 (任务 2)
 
 Check the backup file in HDFS.
 检查 HDFS 中的备份文件。
@@ -50,7 +80,7 @@ hdfs dfs -cat /user/test/flumebackup/<filename> | head -n 2
 
 *Screenshot Instructions / 截图说明:*
 Paste the command and the result (first 2 lines) into the release document.
-将查看备份目录下的第一个文件的前2条数据的命令与结果截图粘贴至结果文档中。
+将查看备份目录下的第一个文件的前2条数据的命令与结果截图粘贴至客户端桌面【Release\任务D提交结果.docx】中对应的任务序号下。
 
 **Troubleshooting:**
 *   **Error**: `netcat` not found. **Solution**: Ensure `nc` is installed (`yum install nc`).
@@ -58,7 +88,7 @@ Paste the command and the result (first 2 lines) into the release document.
 
 ---
 
-## 3. Submit Flink Job (Task 2) / 提交 Flink 作业 (任务 2)
+## 4. Submit Flink Job (Task 2) / 提交 Flink 作业 (任务 2)
 
 Submit the Flink job to the YARN cluster in Per-Job mode.
 以 Per-Job 模式将 Flink 作业提交到 YARN 集群。
@@ -81,7 +111,7 @@ You should see a job named `OrderStreamTask` in `RUNNING` state.
 
 ---
 
-## 4. Verify Results & Screenshots / 验证结果与截图
+## 5. Verify Results & Screenshots / 验证结果与截图
 
 ### Task 2.1: Real-time Order Count (Redis) / 实时订单统计 (Redis)
 
