@@ -52,6 +52,10 @@ hdfs dfs -cat /user/test/flumebackup/<filename> | head -n 2
 Paste the command and the result (first 2 lines) into the release document.
 将查看备份目录下的第一个文件的前2条数据的命令与结果截图粘贴至结果文档中。
 
+**Troubleshooting:**
+*   **Error**: `netcat` not found. **Solution**: Ensure `nc` is installed (`yum install nc`).
+*   **Error**: Port in use. **Solution**: `netstat -tulpn | grep 10050` and kill the process.
+
 ---
 
 ## 3. Submit Flink Job (Task 2) / 提交 Flink 作业 (任务 2)
@@ -67,6 +71,13 @@ flink run -m yarn-cluster \
   -c com.example.task.OrderStreamTask \
   ./target/flink-order-processing-1.0-SNAPSHOT.jar
 ```
+
+**Verify Job Status / 验证作业状态:**
+```bash
+flink list -r
+```
+You should see a job named `OrderStreamTask` in `RUNNING` state.
+你应该看到名为 `OrderStreamTask` 的作业处于 `RUNNING` 状态。
 
 ---
 
@@ -90,6 +101,8 @@ get totalcount
 Take a screenshot. Wait 1 minute. Take another screenshot. (Paste both screenshots into the document).
 截图。等待 1 分钟。再次截图。(需两次截图，第一次截图和第二次截图间隔1分钟以上，第一次截图放前面，第二次截图放后面)。
 
+**Expected Output / 预期输出:** An integer (e.g., `100`).
+
 ### Task 2.2: Top 3 Item Consumption (Redis) / 消费额前 3 商品 (Redis)
 
 Inside Redis CLI / 在 Redis CLI 中:
@@ -103,6 +116,10 @@ Take a screenshot. Wait 1 minute. Take another screenshot. (Paste both screensho
 
 **Example Output / 示例输出:**
 `[1:10020.2,42:4540.0,12:540]`
+
+**Note / 注意:**
+The values are formatted to avoid scientific notation.
+数值已格式化，避免使用科学计数法。
 
 ### Task 2.3: HBase Aggregation / HBase 聚合统计
 
@@ -123,3 +140,8 @@ scan 'shtd_result:orderpositiveaggr', {LIMIT => 5, COLUMNS => ['info:orderprice'
 *Screenshot Instructions / 截图说明:*
 Take a screenshot of the result.
 将执行结果截图粘贴至文档中。
+
+**Troubleshooting:**
+*   **Error**: `TableNotFoundException`. **Solution**: Ensure the namespace `shtd_result` and table `orderpositiveaggr` are created before running the job.
+    *   `create_namespace 'shtd_result'`
+    *   `create 'shtd_result:orderpositiveaggr', 'info'`
