@@ -42,7 +42,12 @@ Use the built-in Kafka consumer to check for data.
 ```bash
 kafka-console-consumer.sh --bootstrap-server 192.168.12.41:9092 --topic order --from-beginning --max-messages 2
 ```
-
+```bash
+[root@master ~]# kafka-console-consumer.sh --bootstrap-server 192.168.12.41:9092 --topic order_06_01 --from-beginning --max-messages 2
+4693,42,8,53.691207515271465,2026-03-01 10:08:19
+8773,23,4,0.19817032971660709,2026-03-01 10:08:20
+Processed a total of 2 messages
+```
 *Screenshot Instructions / 截图说明:*
 Paste the command and the result (first 2 messages) into the release document.
 将前2条数据的结果截图粘贴至客户端桌面【Release\任务D提交结果.docx】中对应的任务序号下。
