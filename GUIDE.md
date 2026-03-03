@@ -82,7 +82,12 @@ hdfs dfs -ls /user/test/flumebackup
 # 查看第一个文件的内容 (请将 <filename> 替换为实际文件名)
 hdfs dfs -cat /user/test/flumebackup/<filename> | head -n 2
 ```
-
+```bash
+[root@master ~]# hdfs dfs -cat /user/test/flumebackup/FlumeData.1772501369447| head -n 2
+ERROR StatusLogger No log4j2 configuration file found. Using default configuration: logging only errors to the console. Set system property 'log4j2.debug' to show Log4j2 internal initialization logging.
+3053,35,3,88.76632035737309,2026-03-03 09:29:29
+7749,52,6,7.568263946985954,2026-03-03 09:29:30
+```
 *Screenshot Instructions / 截图说明:*
 Paste the command and the result (first 2 lines) into the release document.
 将查看备份目录下的第一个文件的前2条数据的命令与结果截图粘贴至客户端桌面【Release\任务D提交结果.docx】中对应的任务序号下。
