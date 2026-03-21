@@ -85,8 +85,8 @@ hdfs dfs -cat /user/test/flumebackup/<filename> | head -n 2
 ```bash
 [root@master ~]# hdfs dfs -cat /user/test/flumebackup/FlumeData.1772501369447| head -n 2
 ERROR StatusLogger No log4j2 configuration file found. Using default configuration: logging only errors to the console. Set system property 'log4j2.debug' to show Log4j2 internal initialization logging.
-3053,35,3,88.76632035737309,2026-03-03 09:29:29
-7749,52,6,7.568263946985954,2026-03-03 09:29:30
+3053,35,3,88.76632035737309,2026-03-21 09:29:29
+7749,52,6,7.568263946985954,2026-03-21 09:29:30
 ```
 *Screenshot Instructions / 截图说明:*
 Paste the command and the result (first 2 lines) into the release document.
