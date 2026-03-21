@@ -44,8 +44,8 @@ kafka-console-consumer.sh --bootstrap-server 192.168.12.41:9092 --topic order --
 ```
 ```bash
 [root@master ~]# kafka-console-consumer.sh --bootstrap-server 192.168.12.41:9092 --topic order_06_01 --from-beginning --max-messages 2
-4693,42,8,53.691207515271465,2026-03-01 10:08:19
-8773,23,4,0.19817032971660709,2026-03-01 10:08:20
+4693,42,8,53.691207515271465,2026-03-21 10:08:19
+8773,23,4,0.19817032971660709,2026-03-21 10:08:20
 Processed a total of 2 messages
 ```
 *Screenshot Instructions / 截图说明:*
